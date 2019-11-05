@@ -7,6 +7,7 @@ import passportHttpBearer from "passport-http-bearer"
 import errorHandler from "errorhandler"
 import logger from "./util/logger"
 import { ErrorRequestHandler } from "express-serve-static-core"
+import { ValidationError as JoiValidationError } from "@hapi/joi";
 
 import { MONGODB_URI } from "./util/secrets"
 
@@ -81,6 +82,14 @@ app.get("/", (req, res) => res.send("Sofomo api welcome!"))
 
 const err: ErrorRequestHandler = function(error, req, res, next) {
     logger.error(JSON.stringify(error))
+    if (error.isJoi) {
+        const validationError: JoiValidationError = error;
+        const content: { [index: string]: string } = {};
+        validationError.details.forEach((item) => { content[item.path[item.path.length - 1]] = item.message; });
+        res.status(400).send(content);
+        next();
+        return;
+    }
     if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
         res.status(401).end()
         return next()
@@ -96,5 +105,6 @@ app.use((req, res, next) => {
 })
 
 app.use(errorHandler())
+
 
 export default app

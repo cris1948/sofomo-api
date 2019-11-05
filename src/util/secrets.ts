@@ -10,17 +10,23 @@ if (fs.existsSync(".env")) {
     dotenv.config({ path: ".env.example" })
 }
 
+
 export const JWT_SECRET = process.env["JWT_SECRET"]
 export const PORT = process.env["PORT"]
 export const ENV = process.env["NODE_ENV"]
-export const MONGODB_URI = ENV === "test" ? process.env["MONGODB_URI_TEST"] : process.env["MONGODB_URI"];
+export const MONGODB_URI = ENV === "test" ? process.env["MONGODB_URI_TEST"] : process.env["MONGODB_URI"]
+export const IPSTACK_APIKEY = process.env["IPSTACK_APIKEY"]
 
-if (!MONGODB_URI) {
-    logger.error("Lack of MONGODB_URI variable in .env configuration.")
+const requiredVariables = [MONGODB_URI, IPSTACK_APIKEY, JWT_SECRET]
+let allVariablesCorrect = true
+requiredVariables.forEach((variable) => {
+    if (!variable) {
+        logger.error(`Lack of ${variable} variable in .env configuration.\n`)
+        allVariablesCorrect = false
+    }
+})
+if (!allVariablesCorrect) {
     process.exit(1)
 }
 
-if (!JWT_SECRET) {
-    logger.error("Lack of JWT_SECRET variable in .env configuration.")
-    process.exit(1)
-}
+
