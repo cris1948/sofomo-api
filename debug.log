@@ -1,0 +1,111 @@
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"level":"error","message":"{}"}
+{"message":"<- 500","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"level":"error","message":"{}"}
+{"message":"<- 500","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"level":"error","message":"{}"}
+{"message":"<- 500","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"level":"error","message":"{}"}
+{"message":"<- 500","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"level":"error","message":"{\"name\":\"TokenExpiredError\",\"message\":\"jwt expired\",\"expiredAt\":\"2019-11-05T14:31:30.000Z\"}"}
+{"message":"<- 401","level":"debug"}
+{"message":"Logging initialized at debug level","level":"debug"}
+{"message":"Using .env file to supply config environment variables","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"<- 200","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"-> POST /login","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"message":"-> GET /secret","level":"debug"}
+{"level":"error","message":"{\"name\":\"TokenExpiredError\",\"message\":\"jwt expired\",\"expiredAt\":\"2019-11-05T14:32:05.000Z\"}"}
+{"message":"<- 401","level":"debug"}
