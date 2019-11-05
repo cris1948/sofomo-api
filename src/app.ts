@@ -12,8 +12,12 @@ import { MONGODB_URI } from "./util/secrets"
 
 import userService from "./user/user.service"
 import userController from "./user/user.controller"
+import geoController from "./geolocation/geolocation.controller"
 
 import { wrapHandler } from "./util/request"
+
+import swaggerUi from "swagger-ui-express"
+import swaggerDocument from "./swagger.json"
 
 const LocalStrategy = passportLocal.Strategy
 const HttpBearerStrategy = passportHttpBearer.Strategy
@@ -23,14 +27,16 @@ const app = express()
 const mongoUrl = MONGODB_URI
 mongoose.Promise = bluebird
 mongoose.set("useCreateIndex", true)
-mongoose.connect(mongoUrl, { useNewUrlParser: true }).then(
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => {
     },
 ).catch(err => {
     logger.error("MongoDB connection error. Please make sure MongoDB is running. " + err)
 })
+
 app.use(express.json())
 app.use(passport.initialize())
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use((req, res, next) => {
     logger.debug(`-> ${req.method} ${req.url}`)
@@ -61,9 +67,16 @@ passport.use(new HttpBearerStrategy((token, done) => {
     },
 ))
 
+// AUTH
 app.post("/login", passport.authenticate("local", { session: false }), wrapHandler(userController.postLogin))
-app.get("/secret", passport.authenticate("bearer", { session: false }), (req, res) => res.json({ msg: "Hurray! I have access to secure endpoint." }))
 
+// GEOLOCATION
+app.post("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.postGeolocation));
+app.delete("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.deleteGeolocation));
+app.get("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.getGeolocation));
+
+// GENERAL
+app.get("/secret", passport.authenticate("bearer", { session: false }), (req, res) => res.json({ msg: "Hurray! I have access to secure endpoint." }))
 app.get("/", (req, res) => res.send("Sofomo api welcome!"))
 
 const err: ErrorRequestHandler = function(error, req, res, next) {

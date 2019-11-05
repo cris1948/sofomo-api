@@ -10,8 +10,10 @@ if (fs.existsSync(".env")) {
     dotenv.config({ path: ".env.example" })
 }
 
-export const MONGODB_URI = process.env["MONGODB_URI"];
 export const JWT_SECRET = process.env["JWT_SECRET"]
+export const PORT = process.env["PORT"]
+export const ENV = process.env["NODE_ENV"]
+export const MONGODB_URI = ENV === "test" ? process.env["MONGODB_URI_TEST"] : process.env["MONGODB_URI"];
 
 if (!MONGODB_URI) {
     logger.error("Lack of MONGODB_URI variable in .env configuration.")
