@@ -255,14 +255,41 @@ describe("GET /geolocation", () => {
 
 describe("DELETE /geolocation", () => {
     it("DELETE should remove existed object based on IP", async () => {
-        
+        const geo1 = await createGeolocation();
+        const token = await getValidToken()
+        const response = await request(app)
+            .delete(`/geolocation?ip=${geo1.ip}`)
+            .set("Authorization", `Bearer ${token}`)
+
+        expect(response.status).toEqual(200)
+        const geolocation = await Geolocation.findOne({ ip: geo1.ip })
+        expect(geolocation).toBeNull();
     })
 
     it("DELETE should remove existed object based on domain", async () => {
 
     })
 
-    it("DELETE should return validation error", async () => {
+    it("DELETE should remove existed object based on id", async () => {
 
+    })
+
+    it("DELETE should return validation error due to lack of params", async () => {
+        const token = await getValidToken()
+        const response = await request(app)
+            .delete(`/geolocation`)
+            .set("Authorization", `Bearer ${token}`)
+        
+        expect(response.status).toEqual(400)
+    })
+
+    it("DELETE should return validation error to wrong of params", async () => {
+        const geo1 = await createGeolocation();
+        const token = await getValidToken()
+        const response = await request(app)
+            .delete(`/geolocation?ip=${geo1.ip}&domain=${geo1.domain}`)
+            .set("Authorization", `Bearer ${token}`)
+
+        expect(response.status).toEqual(400)
     })
 })

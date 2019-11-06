@@ -4,6 +4,7 @@ import Geolocation, { GeolocationModel } from "./geolocation"
 import axios from "axios"
 import { AxiosResponse } from "axios"
 import { IPSTACK_APIKEY } from "../util/secrets"
+import { isNullOrUndefined } from "util"
 
 const IPSTACK_APIURL = "http://api.ipstack.com/"
 
@@ -70,6 +71,25 @@ export default {
         }
         const geolocationDto: GeolocationDto = await this.lookup({ ip, domain })
         return await updateOrCreateGeolocation(domain, ip, geolocationDto)
+    },
+    async delete({ ip, domain, id }: { ip: string, domain: string, id: string }): Promise<GeolocationModel> {
+        let schema = Joi.object({
+            domain: Joi.string().domain(),
+            ip: Joi.string().ip(),
+            id: Joi.string(),
+        }).xor("domain", "ip", "id")
+        Joi.validate({ ip, domain, id }, schema, { abortEarly: false }, (err) => {
+            if (err) throw err
+        })
+        let query = { ip, domain, id };
+        Object.keys(query).forEach(key => query[key] === undefined && delete query[key])
+        let geolocation: GeolocationModel = await Geolocation.findOne(query)
+
+        if (!geolocation) {
+            return;
+        }
+        await geolocation.remove()
+        return geolocation;
     },
     async lookup({ ip, domain }: { ip: string, domain: string }): Promise<GeolocationDto> {
         try {

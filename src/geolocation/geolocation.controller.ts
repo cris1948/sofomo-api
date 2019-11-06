@@ -21,7 +21,16 @@ const postGeolocation: PromisifiedRequestHandler = async (req: PassportExtendedR
 }
 
 const deleteGeolocation: PromisifiedRequestHandler = async (req: PassportExtendedRequest, res) => {
-    res.status(200).send({})
+    const query = {
+        ip: req.query.ip,
+        domain: req.query.domain,
+        id: req.query.id,
+    }
+    let response = await geoService.delete(query);
+    if (!response) {
+        res.status(404).send("Object not found");
+    }
+    res.status(200).send("OK")
 }
 export default {
     getGeolocation,

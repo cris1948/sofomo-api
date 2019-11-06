@@ -73,8 +73,8 @@ app.post("/login", passport.authenticate("local", { session: false }), wrapHandl
 
 // GEOLOCATION
 app.post("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.postGeolocation));
-app.delete("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.deleteGeolocation));
 app.get("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.getGeolocation));
+app.delete("/geolocation", passport.authenticate("bearer", { session: false }), wrapHandler(geoController.deleteGeolocation));
 
 // GENERAL
 app.get("/secret", passport.authenticate("bearer", { session: false }), (req, res) => res.json({ msg: "Hurray! I have access to secure endpoint." }))
