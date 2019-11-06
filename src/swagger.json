@@ -4,5 +4,281 @@
         "version": "1.0.0",
         "title": "Sofomo API - documentation"
     },
-    "paths": {}
+    "tags": [
+        {
+            "name": "Login"
+        },
+        {
+            "name": "Geolocation"
+        }
+    ],
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    },
+    "paths": {
+        "/login": {
+            "post": {
+                "description": "Endpoint for obtaining the JWT authorization token, which you can use later to query an other API endpoints.",
+                "operationId": "postLogin",
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Request body",
+                        "schema": {
+                            "type": "object",
+                            "required": ["email", "password"],
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "email": "test@test.pl",
+                                "password": "123456"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return JWT token if provieded credentials are OK.",
+                        "schema": {
+                            "type": "string",
+                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error"
+                    },
+                    "401": {
+                        "description": "Authorization error"
+                    }
+                },
+                "tags": ["Login"]
+            }
+        },
+        "/geolocation": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": ["Geolocation"],
+                "description": "Returns geolocations stored in database. You can ask about all geolocations or single geolocation based on IP address or domain name or ObjectId. Filtering params work with 'or' operator: when you specify more than one params API will return objects for which at least one attribute exist in geolocation object.",
+                "operationId": "getGeolocation",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ip",
+                        "in": "query",
+                        "description": "IPv4 or IPv6 to filter by",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "domain to filter by",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id to filter by",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return geolocations based on query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Geolocation"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationError"
+                    },
+                    "401": {
+                        "description": "Authorization error"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": ["Geolocation"],
+                "description": "Query for obtain geolocation data based on IP address or domain. When POST for information, external API is called. When correct values are returned from external API, data for specific IP is stored in our database. At least one of parameters is required, when executing this endpoint.",
+                "operationId": "postGeolocation",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Request body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "ip": {
+                                    "description": "IPv4 or IPv6 for which you want to obtain a geolocation data. Required if domain is no specified.",
+                                    "type": "string"
+                                },
+                                "domain": {
+                                    "description": "Domain for which you want to obtain a geolocation data. Required if ip is no specified.",
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "ip": "138.68.144.206"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return geolocations based on query",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Geolocation"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationError"
+                    },
+                    "401": {
+                        "description": "Authorization error"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": ["test"]
+                    }
+                ],
+                "tags": ["Geolocation"],
+                "description": "Delete geolocation stored in database based on IP address, domain or ObjectId. At least one param is required.",
+                "operationId": "deleteGeolocation",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ip",
+                        "in": "query",
+                        "description": "IPv4 or IPv6 to delete by",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "domain to delete by",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id to delete by",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete geolocation based on params",
+                        "schema": {
+                            "type": "string",
+                            "example": "OK"
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationError"
+                    },
+                    "401": {
+                        "description": "Authorization error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Geolocation": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "country_name": {
+                    "type": "string"
+                },
+                "country_code": {
+                    "type": "string"
+                },
+                "region_code": {
+                    "type": "string"
+                },
+                "region_name": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "zip": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                }
+            },
+            "example": {
+                "_id": "5dc1bbe81ae84a0177d71e71",
+                "ip": "89.64.56.38",
+                "domain": "example.com",
+                "type": "IPv4",
+                "country_code": "PL",
+                "country_name": "Poland",
+                "region_code": "DS",
+                "region_name": "Lower Silesia",
+                "city": "Wrocław",
+                "zip": "50-341",
+                "latitude": 51.11933135986328,
+                "longitude": 17.06340980529785
+            }
+        }
+    }
 }
