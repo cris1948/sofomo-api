@@ -8,7 +8,9 @@
 		"url": "git@github.com:cris1948/sofomo-api.git"
 	},
 	"scripts": {
-		"dev": "tsc -w --preserveWatchOutput"
+		"dev": "tsc -w --preserveWatchOutput",
+		"build": "tsc",
+		"start": "node dist/server.js"
 	},
 	"dependencies": {
 		"@hapi/joi": "16.0.0-rc2",

@@ -4,7 +4,6 @@ import Geolocation, { GeolocationModel } from "./geolocation"
 import axios from "axios"
 import { AxiosResponse } from "axios"
 import { IPSTACK_APIKEY } from "../util/secrets"
-import { isNullOrUndefined } from "util"
 
 const IPSTACK_APIURL = "http://api.ipstack.com/"
 
@@ -61,7 +60,6 @@ export default {
         Joi.validate({ ip, domain }, schema, { abortEarly: false }, (err) => {
             if (err) throw err
         })
-
         let query = (ip || domain) ? { $or: [] } : {}
         if (ip) query.$or.push({ ip })
         if (domain) query.$or.push({ domain })

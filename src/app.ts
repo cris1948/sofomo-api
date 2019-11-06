@@ -24,7 +24,6 @@ const LocalStrategy = passportLocal.Strategy
 const HttpBearerStrategy = passportHttpBearer.Strategy
 
 const app = express()
-
 const mongoUrl = MONGODB_URI
 mongoose.Promise = bluebird
 mongoose.set("useCreateIndex", true)
