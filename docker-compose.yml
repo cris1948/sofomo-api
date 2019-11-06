@@ -1,0 +1,17 @@
+version: "3.1"
+services:
+    node:
+        build: .
+        container_name: sofomo-api
+        working_dir: /home/node/app
+        ports:
+            - "3002:3002"
+        command: "npm start"
+    mongo:
+        container_name: sofomo-api-mongo
+        image: "mongo:4.2.1"
+        volumes:
+            - data-volume:/data/db
+
+volumes:
+    data-volume:
